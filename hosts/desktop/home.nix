@@ -1,19 +1,42 @@
 { config, pkgs, stateVersion, ... }:
 
+let
+  # Physical panel resolutions and per-monitor scale factors.
+  dellRes = { w = 2560; h = 1440; };
+  dellScale = 1.25;
+  msiRes = { w = 1920; h = 1080; };
+  msiScale = 1.0;
+
+  # Logical (post-scale) sizes, actually used for layout math below.
+  dellLogical = {
+    w = builtins.floor (dellRes.w / dellScale);
+    h = builtins.floor (dellRes.h / dellScale);
+  };
+  # DP-2 is rotated 90 degrees (transform = 1), so its logical footprint is
+  # the landscape Dell's dimensions with width/height swapped.
+  portraitLogical = { w = dellLogical.h; h = dellLogical.w; };
+  msiLogical = { w = builtins.floor (msiRes.w / msiScale); h = builtins.floor (msiRes.h / msiScale); };
+
+  # x: monitors placed left to right, flush against each other.
+  dp2X = 0;
+  dp3X = dp2X + portraitLogical.w;
+  dp1X = dp3X + dellLogical.w;
+
+  # y: vertically center a monitor of height `h` against the tallest
+  # screen (the portrait one), so all three share one horizontal
+  # center-line - the cursor crosses straight across at eye level.
+  centerY = h: (portraitLogical.h - h) / 2;
+in
 {
   imports = [
     ../../modules/home-manager/common.nix
     ../../modules/home-manager/options.nix
   ];
 
-  # DP-2 (portrait) is the tallest screen (logical 1152x2048), so it anchors
-  # y=0 and the two landscape screens are each shifted down to vertically
-  # center them on it - all three share the same horizontal center-line
-  # (y=1024), so the cursor crosses straight across at eye level.
   my.monitors = [
-    { name = "DP-2"; width = 2560; height = 1440; refresh = 99.95; x = 0; y = 0; scale = 1.25; transform = 1; }
-    { name = "DP-3"; width = 2560; height = 1440; refresh = 99.95; x = 1152; y = 448; scale = 1.25; }
-    { name = "DP-1"; width = 1920; height = 1080; refresh = 60.0; x = 3200; y = 484; scale = 1.0; primary = true; }
+    { name = "DP-2"; width = dellRes.w; height = dellRes.h; refresh = 99.95; x = dp2X; y = centerY portraitLogical.h; scale = dellScale; transform = 1; }
+    { name = "DP-3"; width = dellRes.w; height = dellRes.h; refresh = 99.95; x = dp3X; y = centerY dellLogical.h; scale = dellScale; }
+    { name = "DP-1"; width = msiRes.w; height = msiRes.h; refresh = 60.0; x = dp1X; y = centerY msiLogical.h; scale = msiScale; primary = true; }
   ];
 
   my.wms.hyprland.flavor = "serpantinum";
