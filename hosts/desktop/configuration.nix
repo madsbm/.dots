@@ -16,7 +16,7 @@
   boot.loader = {
     grub = {
       enable = true;
-      useOSProber = true;
+      # useOSProber = true;
       efiSupport = true;
       device = "nodev";
     };
