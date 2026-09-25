@@ -109,6 +109,15 @@
           y = lib.mkOption { type = lib.types.int; };
           scale = lib.mkOption { type = lib.types.float; default = 1.0; };
           primary = lib.mkOption { type = lib.types.bool; default = false; };
+          transform = lib.mkOption {
+            type = lib.types.nullOr (lib.types.ints.between 0 7);
+            default = null;
+            description = ''
+              wl_output transform: 0 = normal, 1 = 90°, 2 = 180°, 3 = 270° (clockwise),
+              4-7 = the same flipped. Use 1 or 3 for a portrait-mounted monitor;
+              null leaves the monitor unrotated.
+            '';
+          };
         };
       });
       default = [ ];

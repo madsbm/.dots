@@ -5,10 +5,11 @@ let
 
   mkHyprMonitor = m: ''
     hl.monitor({
-        output   = "${m.name}",
-        mode     = "${toString m.width}x${toString m.height}@${toString m.refresh}",
-        position = "${toString m.x}x${toString m.y}",
-        scale    = ${toString m.scale},
+        output    = "${m.name}",
+        mode      = "${toString m.width}x${toString m.height}@${toString m.refresh}",
+        position  = "${toString m.x}x${toString m.y}",
+        scale     = ${toString m.scale},
+        ${lib.optionalString (m.transform != null) "transform = ${toString m.transform},"}
     })
   '';
   hyprMonitors = lib.concatStrings (map mkHyprMonitor config.my.monitors);
