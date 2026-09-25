@@ -56,7 +56,6 @@
             "playingSource"
             "lastfm"
             "adblock"
-            "hidePodcasts"
             "betterGenres"
             "history"
             "shuffle"
