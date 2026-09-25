@@ -19,6 +19,15 @@ let
     hl.exec_cmd("hyprctl dispatch focusmonitor ${(builtins.head primaryOutputs).name}")
   '';
 
+  mkTransparentRule = class: ''
+    hl.window_rule({
+        name    = "transparent-${class}",
+        match   = { class = "^${class}$" },
+        opacity = "${cfg.transparentOpacity}",
+    })
+  '';
+  transparentRules = lib.concatStrings (map mkTransparentRule cfg.transparentClasses);
+
   toLuaValue = v:
     if builtins.isString v then builtins.toJSON v
     else if builtins.isBool v then (if v then "true" else "false")
@@ -60,6 +69,7 @@ in
 
     xdg.configFile."caelestia/hypr-user.lua".text = ''
       ${hyprMonitors}
+      ${transparentRules}
       hl.config({
           input = {
               kb_layout  = "${cfg.keyboard.layout}",

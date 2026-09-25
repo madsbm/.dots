@@ -19,6 +19,15 @@ let
     hl.exec_cmd("hyprctl dispatch focusmonitor ${(builtins.head primaryOutputs).name}")
   '';
 
+  mkTransparentRule = class: ''
+    hl.window_rule({
+        name    = "transparent-${class}",
+        match   = { class = "^${class}$" },
+        opacity = "${cfg.transparentOpacity}",
+    })
+  '';
+  transparentRules = lib.concatStrings (map mkTransparentRule cfg.transparentClasses);
+
   hyprlandLua = pkgs.writeText "hyprland.lua" ''
     require("config/variables")
     require("config/env")
@@ -39,6 +48,7 @@ let
         },
     })
 
+    ${transparentRules}
     hl.on("hyprland.start", function()
         hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP HYPRLAND_INSTANCE_SIGNATURE")
         hl.exec_cmd("systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP HYPRLAND_INSTANCE_SIGNATURE")
