@@ -48,6 +48,13 @@ let
         },
     })
 
+    ${lib.optionalString cfg.noHardwareCursors ''
+    hl.config({
+        cursor = {
+            no_hardware_cursors = true,
+        },
+    })
+    ''}
     ${transparentRules}
     hl.on("hyprland.start", function()
         hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP HYPRLAND_INSTANCE_SIGNATURE")

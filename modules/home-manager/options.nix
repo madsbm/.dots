@@ -86,6 +86,18 @@
           default = { };
           description = "Overrides for Caelestia's hypr/variables.lua (keybinds, cursor, gaps, etc.), written to hypr-vars.lua.";
         };
+        noHardwareCursors = lib.mkOption {
+          type = lib.types.bool;
+          default = false;
+          description = ''
+            Disable Hyprland's hardware cursor planes (cursor.no_hardware_cursors),
+            falling back to a software-rendered cursor. Works around an NVIDIA
+            KMS driver bug where rapid hardware-cursor-plane imports (e.g. moving
+            the mouse across monitors with different scales) can fail to map GPU
+            memory (nvidia-drm "Failed to map NvKmsKapiMemory") and crash the
+            compositor with an Xid 31 MMU fault.
+          '';
+        };
         transparentApps = lib.mkOption {
           type = lib.types.attrsOf lib.types.str;
           default = { };

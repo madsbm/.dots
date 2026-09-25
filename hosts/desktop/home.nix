@@ -19,6 +19,12 @@ in
   my.wms.hyprland.flavor = "serpantinum";
   my.wms.hyprland.keyboard = { layout = "dk"; variant = "nodeadkeys"; };
 
+  # Works around an NVIDIA 595.71.05 KMS driver bug: fast hardware-cursor-
+  # plane churn (moving the mouse across monitors with different scales)
+  # can fail to map GPU memory and crash the compositor with an Xid 31
+  # MMU fault. See github.com/NVIDIA/open-gpu-kernel-modules/issues/1134.
+  my.wms.hyprland.noHardwareCursors = true;
+
   # active/inactive/fullscreen. Spotify is more transparent than VS Code,
   # which stays fairly opaque for code readability.
   my.wms.hyprland.transparentApps = {
