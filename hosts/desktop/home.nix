@@ -14,6 +14,10 @@
 
   my.wms.hyprland.flavor = "serpantinum";
   my.wms.hyprland.keyboard = { layout = "dk"; variant = "nodeadkeys"; };
+
+  # user@host, full path, git branch/status - the standard multi-line
+  # informative Oh My Zsh theme.
+  my.programs.zsh.theme = "af-magic";
   my.wms.hyprland.vars = {
     cursorTheme = "DMZ-White";
     cursorSize = 24;
