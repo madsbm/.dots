@@ -1,10 +1,6 @@
 { config, pkgs, stateVersion, ... }:
 
 let
-  # DP-2 (portrait) is the tallest screen, logical 1152x2048 (2560x1440 at
-  # scale 1.25, rotated). Center the two shorter landscape screens on its
-  # height so all three share one horizontal center-line - the cursor
-  # crosses straight across at eye level.
   portraitHeight = 2048;
   centerY = h: (portraitHeight - h) / 2;
 in
@@ -22,6 +18,13 @@ in
 
   my.wms.hyprland.flavor = "serpantinum";
   my.wms.hyprland.keyboard = { layout = "dk"; variant = "nodeadkeys"; };
+
+  # active/inactive/fullscreen. Spotify is more transparent than VS Code,
+  # which stays fairly opaque for code readability.
+  my.wms.hyprland.transparentApps = {
+    spotify = "0.80 0.65 1.0";
+    code = "0.92 0.85 1.0";
+  };
 
   # user@host, full path, git branch/status - the standard multi-line
   # informative Oh My Zsh theme.

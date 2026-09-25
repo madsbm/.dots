@@ -19,14 +19,14 @@ let
     hl.exec_cmd("hyprctl dispatch focusmonitor ${(builtins.head primaryOutputs).name}")
   '';
 
-  mkTransparentRule = class: ''
+  mkTransparentRule = class: opacity: ''
     hl.window_rule({
         name    = "transparent-${class}",
         match   = { class = "^${class}$" },
-        opacity = "${cfg.transparentOpacity}",
+        opacity = "${opacity}",
     })
   '';
-  transparentRules = lib.concatStrings (map mkTransparentRule cfg.transparentClasses);
+  transparentRules = lib.concatStrings (lib.mapAttrsToList mkTransparentRule cfg.transparentApps);
 
   toLuaValue = v:
     if builtins.isString v then builtins.toJSON v

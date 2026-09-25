@@ -87,22 +87,18 @@
           default = { };
           description = "Overrides for Caelestia's hypr/variables.lua (keybinds, cursor, gaps, etc.), written to hypr-vars.lua.";
         };
-        transparentClasses = lib.mkOption {
-          type = lib.types.listOf lib.types.str;
-          default = [ "code" "spotify" ];
+        transparentApps = lib.mkOption {
+          type = lib.types.attrsOf lib.types.str;
+          default = { };
           description = ''
-            Window classes to apply `transparentOpacity` + blur to via a
-            windowrule. Compositor-level, so it applies no matter which
-            matugen colorscheme or app theme (VS Code theme, Spicetify skin)
-            is active. Find a class with `hyprctl clients`.
-          '';
-        };
-        transparentOpacity = lib.mkOption {
-          type = lib.types.str;
-          default = "0.90 0.80 1.0";
-          description = ''
-            Hyprland windowrule opacity string applied to `transparentClasses`:
-            "<active> <inactive> <fullscreen>".
+            Per-window-class opacity, applied via a windowrule (plus the
+            already-enabled global blur behind it). Compositor-level, so it
+            applies no matter which matugen colorscheme or app theme (VS
+            Code theme, Spicetify skin) is active.
+
+            Keys are window classes (find one with `hyprctl clients`);
+            values are the windowrule opacity string: "<active> <inactive>
+            [<fullscreen>]", e.g. { spotify = "0.80 0.65 1.0"; }.
           '';
         };
         packages = lib.mkOption {
