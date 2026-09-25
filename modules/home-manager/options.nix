@@ -27,6 +27,16 @@
         };
       };
 
+      zsh = {
+        enable = lib.mkOption { type = lib.types.bool; default = true; description = "Enable zsh with Oh My Zsh."; };
+        theme = lib.mkOption { type = lib.types.str; default = "robbyrussell"; description = "Oh My Zsh theme to use."; };
+        plugins = lib.mkOption {
+          type = lib.types.listOf lib.types.str;
+          default = [ "git" "sudo" "docker" "kubectl" "fzf" ];
+          description = "Oh My Zsh plugins to enable.";
+        };
+      };
+
       spicetify = {
         enable = lib.mkOption { type = lib.types.bool; default = true; description = "Enable Spicetify (themed Spotify)."; };
         theme = lib.mkOption { type = lib.types.enum [ "hazy" "dribbblish" "text" ]; default = "hazy"; description = "Spicetify theme to use."; };
@@ -61,8 +71,8 @@
         theme = lib.mkOption { type = lib.types.enum [ "default" ]; default = "default"; description = "Niri config theme to use."; };
         packages = lib.mkOption {
           type = lib.types.listOf lib.types.package;
-          default = with pkgs; [ alacritty fuzzel ];
-          description = "Packages to install alongside niri (terminal, launcher, etc.).";
+          default = with pkgs; [ fuzzel ];
+          description = "Packages to install alongside niri (launcher, etc.); kitty comes from my.programs.kitty.";
         };
       };
 

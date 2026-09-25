@@ -9,7 +9,7 @@ in
     programs.rofi = {
       enable = true;
 
-      terminal = "alacritty";
+      terminal = "kitty";
       location = "center";
       modes = [
         "drun"

@@ -5,10 +5,10 @@
     ./theming/default.nix
     ./programs/spicetify/mod.nix
     ./programs/kitty/mod.nix
+    ./programs/zsh/mod.nix
   ];
 
   home.packages = with pkgs; [
-    alacritty
     brightnessctl
     fzf
   ];
