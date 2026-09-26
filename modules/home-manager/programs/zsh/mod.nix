@@ -38,11 +38,6 @@ in
           src = pkgs.zsh-powerlevel10k;
           file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
         }
-        {
-          name = "zsh-defer";
-          src = pkgs.zsh-defer;
-          file = "share/zsh-defer/zsh-defer.plugin.zsh";
-        }
       ];
 
       oh-my-zsh = {
@@ -52,6 +47,12 @@ in
       };
 
       initContent = lib.mkMerge [
+        # fastfetch runs before instant prompt's preamble entirely, so its
+        # output happens on the real tty (colors intact) and isn't flagged
+        # as unexpected console output during init.
+        (lib.mkOrder 100 ''
+          fastfetch
+        '')
         # Instant prompt must run before anything else that might print.
         (lib.mkOrder 200 ''
           if [[ -r "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
@@ -61,15 +62,6 @@ in
         # After the theme itself loads (plugins are sourced at order 900).
         (lib.mkOrder 1300 ''
           [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-        '')
-        # p10k instant prompt buffers all of init's stdout/stderr to a temp
-        # file, replayed once init finishes - which p10k's own docs say can
-        # leave color-using programs uncolored. zsh-defer (same author,
-        # github.com/romkatv/zsh-defer) queues this for when zle is next
-        # idle, i.e. genuinely after init, with a real tty attached.
-        # -1 -2 keep its stdout/stderr (both are /dev/null'd by default).
-        (lib.mkOrder 1400 ''
-          zsh-defer -1 -2 fastfetch
         '')
       ];
     };

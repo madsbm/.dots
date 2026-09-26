@@ -85,7 +85,7 @@ let
     {
       "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",
       "logo": {
-        "type": "small",
+        "type": "builtin",
         "color": {
           "1": "{{colors.primary.default.hex}}",
           "2": "{{colors.tertiary.default.hex}}",
@@ -99,19 +99,19 @@ let
       },
       "modules": [
         "break",
-        { "type": "title", "format": "{1}", "color": { "user": "{{colors.primary.default.hex}}" } },
+        { "type": "title", "format": "{1}@{2}", "color": { "user": "{{colors.primary.default.hex}}" } },
         "break",
-        { "type": "os", "key": "󱄅 os  ", "keyColor": "{{colors.primary.default.hex}}" },
-        { "type": "uptime", "key": " up   ", "keyColor": "{{colors.tertiary.default.hex}}" },
-        { "type": "shell", "key": " sh   ", "keyColor": "{{colors.secondary.default.hex}}" },
-        { "type": "display", "key": "󰍹 dsp  ", "keyColor": "{{colors.on_surface.default.hex}}" },
-        { "type": "wm", "key": " wm   ", "keyColor": "{{colors.inverse_primary.default.hex}}" },
-        { "type": "terminal", "key": " term ", "keyColor": "{{colors.primary.default.hex}}" },
-        { "type": "cpu", "key": " cpu  ", "keyColor": "{{colors.tertiary.default.hex}}" },
-        { "type": "gpu", "key": "󰢮 gpu  ", "keyColor": "{{colors.secondary.default.hex}}" },
-        { "type": "memory", "key": "󰘚 ram  ", "keyColor": "{{colors.on_surface.default.hex}}" },
-        { "type": "disk", "key": " disk ", "keyColor": "{{colors.inverse_primary.default.hex}}" },
-        { "type": "battery", "key": "󰁹 bat  ", "keyColor": "{{colors.primary.default.hex}}" },
+        { "type": "os", "key": "󱄅 os    ", "keyColor": "{{colors.primary.default.hex}}" },
+        { "type": "uptime", "key": "󰅐 up    ", "keyColor": "{{colors.tertiary.default.hex}}" },
+        { "type": "shell", "key": " sh    ", "keyColor": "{{colors.secondary.default.hex}}" },
+        { "type": "display", "key": "󰍹 dsp   ", "keyColor": "{{colors.on_surface.default.hex}}" },
+        { "type": "wm", "key": " wm    ", "keyColor": "{{colors.inverse_primary.default.hex}}" },
+        { "type": "terminal", "key": " term  ", "keyColor": "{{colors.primary.default.hex}}" },
+        { "type": "cpu", "key": " cpu   ", "keyColor": "{{colors.tertiary.default.hex}}" },
+        { "type": "gpu", "key": "󰍛 gpu   ", "keyColor": "{{colors.secondary.default.hex}}" },
+        { "type": "memory", "key": "󰘚 ram   ", "keyColor": "{{colors.on_surface.default.hex}}" },
+        { "type": "disk", "key": "󰉉 disk  ", "keyColor": "{{colors.inverse_primary.default.hex}}" },
+        { "type": "battery", "key": "󰁹 bat   ", "keyColor": "{{colors.primary.default.hex}}" },
         "break",
         { "type": "colors", "symbol": "circle" }
       ]
