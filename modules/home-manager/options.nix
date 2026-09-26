@@ -28,8 +28,7 @@
       };
 
       zsh = {
-        enable = lib.mkOption { type = lib.types.bool; default = true; description = "Enable zsh with Oh My Zsh."; };
-        theme = lib.mkOption { type = lib.types.str; default = "robbyrussell"; description = "Oh My Zsh theme to use."; };
+        enable = lib.mkOption { type = lib.types.bool; default = true; description = "Enable zsh with Oh My Zsh and powerlevel10k."; };
         plugins = lib.mkOption {
           type = lib.types.listOf lib.types.str;
           default = [ "git" "sudo" "docker" "kubectl" "fzf" ];

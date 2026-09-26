@@ -2,7 +2,6 @@
 
 let
   cfg = config.my.programs.zsh;
-  usingP10k = cfg.theme == "powerlevel10k";
 in
 {
   imports = [ inputs.areofyl-fetch.homeManagerModules.default ];
@@ -27,7 +26,7 @@ in
 
       # powerlevel10k isn't a bundled oh-my-zsh theme, so it's sourced as a
       # plugin (after oh-my-zsh.sh) instead of via oh-my-zsh's own theme=.
-      plugins = lib.optionals usingP10k [
+      plugins = [
         {
           name = "powerlevel10k";
           src = pkgs.zsh-powerlevel10k;
@@ -37,27 +36,27 @@ in
 
       oh-my-zsh = {
         enable = true;
-        theme = if usingP10k then "" else cfg.theme;
+        theme = "";
         plugins = cfg.plugins;
       };
 
       initContent = lib.mkMerge [
         # Instant prompt must run before anything else that might print.
-        (lib.mkIf usingP10k (lib.mkOrder 200 ''
+        (lib.mkOrder 200 ''
           if [[ -r "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
             source "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
           fi
-        ''))
+        '')
         # After the theme itself loads (plugins are sourced at order 900).
-        (lib.mkIf usingP10k (lib.mkOrder 1300 ''
+        (lib.mkOrder 1300 ''
           [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-        ''))
+        '')
         (lib.mkOrder 1400 ''
           fetch
         '')
       ];
     };
 
-    home.file.".p10k.zsh" = lib.mkIf usingP10k { source = ./p10k.zsh; };
+    home.file.".p10k.zsh".source = ./p10k.zsh;
   };
 }

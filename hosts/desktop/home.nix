@@ -26,7 +26,6 @@ in
     firefox = "1.0 0.80 1.0";
   };
 
-  my.programs.zsh.theme = "powerlevel10k";
   my.wms.hyprland.vars = {
     cursorTheme = "DMZ-White";
     cursorSize = 24;
