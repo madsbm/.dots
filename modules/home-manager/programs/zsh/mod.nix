@@ -57,17 +57,8 @@ in
         (lib.mkOrder 1300 ''
           [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
         '')
-        # Deferred to the first prompt draw (not run synchronously during
-        # init) - p10k's instant prompt otherwise flags this as unexpected
-        # console output, and fastfetch itself may not detect a real TTY
-        # (and so skip color) while instant prompt's capture is active.
         (lib.mkOrder 1400 ''
-          _run_fastfetch_once() {
-            fastfetch
-            add-zsh-hook -d precmd _run_fastfetch_once
-          }
-          autoload -Uz add-zsh-hook
-          add-zsh-hook precmd _run_fastfetch_once
+          fastfetch
         '')
       ];
     };
