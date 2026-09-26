@@ -34,6 +34,21 @@ in
         theme = if usingP10k then "" else cfg.theme;
         plugins = cfg.plugins;
       };
+
+      initContent = lib.mkIf usingP10k (lib.mkMerge [
+        # Instant prompt must run before anything else that might print.
+        (lib.mkOrder 200 ''
+          if [[ -r "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
+            source "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
+          fi
+        '')
+        # After the theme itself loads (plugins are sourced at order 900).
+        (lib.mkOrder 1300 ''
+          [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+        '')
+      ]);
     };
+
+    home.file.".p10k.zsh" = lib.mkIf usingP10k { source = ./p10k.zsh; };
   };
 }
