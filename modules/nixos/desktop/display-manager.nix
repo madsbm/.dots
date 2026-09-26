@@ -52,8 +52,11 @@ in
   services.xserver.enable = true;
   services.displayManager.gdm.enable = true;
 
+  # NixOS's gdm module runs the greeter as its own "gdm-greeter" account
+  # with a tmpfs home under /run, not the traditional /var/lib/gdm.
   systemd.tmpfiles.rules = [
-    "d /var/lib/gdm/.config 0700 gdm gdm -"
-    "L+ /var/lib/gdm/.config/monitors.xml - - - - ${monitorsXml}"
+    "d /run/gdm/home/gdm-greeter 0700 gdm-greeter gdm -"
+    "d /run/gdm/home/gdm-greeter/.config 0700 gdm-greeter gdm -"
+    "L+ /run/gdm/home/gdm-greeter/.config/monitors.xml - - - - ${monitorsXml}"
   ];
 }

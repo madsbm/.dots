@@ -24,7 +24,7 @@ in
     code = "0.92 0.85 1.0";
   };
 
-  my.programs.zsh.theme = "bira";
+  my.programs.zsh.theme = "powerlevel10k";
   my.wms.hyprland.vars = {
     cursorTheme = "DMZ-White";
     cursorSize = 24;
