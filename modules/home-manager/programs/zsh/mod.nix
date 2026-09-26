@@ -1,11 +1,17 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 let
   cfg = config.my.programs.zsh;
   usingP10k = cfg.theme == "powerlevel10k";
 in
 {
+  imports = [ inputs.areofyl-fetch.homeManagerModules.default ];
+
   config = lib.mkIf cfg.enable {
+    programs.fetch = {
+      enable = true;
+      spin = "xy";
+    };
     programs.zsh = {
       enable = true;
 
@@ -35,18 +41,21 @@ in
         plugins = cfg.plugins;
       };
 
-      initContent = lib.mkIf usingP10k (lib.mkMerge [
+      initContent = lib.mkMerge [
         # Instant prompt must run before anything else that might print.
-        (lib.mkOrder 200 ''
+        (lib.mkIf usingP10k (lib.mkOrder 200 ''
           if [[ -r "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
             source "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
           fi
-        '')
+        ''))
         # After the theme itself loads (plugins are sourced at order 900).
-        (lib.mkOrder 1300 ''
+        (lib.mkIf usingP10k (lib.mkOrder 1300 ''
           [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+        ''))
+        (lib.mkOrder 1400 ''
+          fetch
         '')
-      ]);
+      ];
     };
 
     home.file.".p10k.zsh" = lib.mkIf usingP10k { source = ./p10k.zsh; };
