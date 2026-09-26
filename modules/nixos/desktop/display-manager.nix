@@ -15,6 +15,8 @@ in
 {
   services.xserver.enable = true;
   services.displayManager.gdm.enable = true;
+  # Temporary: verbose logging to see why monitors.xml isn't taking effect.
+  services.displayManager.gdm.debug = true;
 
   # Mutter's system-wide config store, checked when there's no per-user
   # override - i.e. exactly the pre-login greeter's situation.
