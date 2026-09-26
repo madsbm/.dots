@@ -11,6 +11,25 @@ in
       enable = true;
       spin = "xy";
     };
+
+    programs.fastfetch = {
+      enable = true;
+      settings.modules = [
+        "title"
+        "separator"
+        "os"
+        "uptime"
+        "shell"
+        "display"
+        "wm"
+        "terminal"
+        "cpu"
+        "gpu"
+        "memory"
+        "disk"
+        "battery"
+      ];
+    };
     programs.zsh = {
       enable = true;
 
@@ -52,7 +71,7 @@ in
           [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
         '')
         (lib.mkOrder 1400 ''
-          fetch
+          fastfetch
         '')
       ];
     };
