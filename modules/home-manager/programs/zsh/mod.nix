@@ -12,24 +12,11 @@ in
       spin = "xy";
     };
 
-    programs.fastfetch = {
-      enable = true;
-      settings.modules = [
-        "title"
-        "separator"
-        "os"
-        "uptime"
-        "shell"
-        "display"
-        "wm"
-        "terminal"
-        "cpu"
-        "gpu"
-        "memory"
-        "disk"
-        "battery"
-      ];
-    };
+    # fastfetch's own config (~/.config/fastfetch/config.jsonc) is owned and
+    # dynamically re-rendered by serpantinum's matugen pipeline; see
+    # modules/home-manager/wms/hyprland/flavors/serpantinum/home.nix.
+    home.packages = [ pkgs.fastfetch ];
+
     programs.zsh = {
       enable = true;
 
