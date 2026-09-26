@@ -23,6 +23,7 @@ in
     spotify = "0.80 0.65 1.0";
     code = "0.92 0.85 1.0";
     kitty = "0.80 0.65 1.0";
+    firefox = "1.0 0.80 1.0";
   };
 
   my.programs.zsh.theme = "powerlevel10k";
