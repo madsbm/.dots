@@ -49,9 +49,10 @@ in
       initContent = lib.mkMerge [
         # fastfetch runs before instant prompt's preamble entirely, so its
         # output happens on the real tty (colors intact) and isn't flagged
-        # as unexpected console output during init.
+        # as unexpected console output during init. Skipped in small
+        # terminals (e.g. VSCode's integrated panel).
         (lib.mkOrder 100 ''
-          fastfetch
+          (( COLUMNS >= 80 && LINES >= 20 )) && fastfetch
         '')
         # Instant prompt must run before anything else that might print.
         (lib.mkOrder 200 ''
