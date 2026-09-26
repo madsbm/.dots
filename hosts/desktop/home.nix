@@ -11,30 +11,20 @@ in
   ];
 
   my.monitors = [
-    { name = "DP-2"; width = 2560; height = 1440; refresh = 99.95; x = 0; y = 0; scale = 1.25; transform = 1; }
-    { name = "DP-3"; width = 2560; height = 1440; refresh = 99.95; x = 1152; y = centerY 1152; scale = 1.25; }
-    { name = "DP-1"; width = 1920; height = 1080; refresh = 60.0; x = 3200; y = centerY 1080; scale = 1.0; primary = true; }
+    { name = "DP-2"; width = 2560; height = 1440; refresh = 99.95; x = 0; y = 0; scale = 1.25; transform = 1; vendor = "DEL"; product = "DELL P2425D"; serial = "93X00C4"; }
+    { name = "DP-3"; width = 2560; height = 1440; refresh = 99.95; x = 1152; y = centerY 1152; scale = 1.25; vendor = "DEL"; product = "DELL P2425D"; serial = "76X00C4"; }
+    { name = "DP-1"; width = 1920; height = 1080; refresh = 60.0; x = 3200; y = centerY 1080; scale = 1.0; primary = true; vendor = "MSI"; product = "MSI MAG241C"; serial = "0x000001E0"; }
   ];
 
   my.wms.hyprland.flavor = "serpantinum";
   my.wms.hyprland.keyboard = { layout = "dk"; variant = "nodeadkeys"; };
-
-  # Works around an NVIDIA 595.71.05 KMS driver bug: fast hardware-cursor-
-  # plane churn (moving the mouse across monitors with different scales)
-  # can fail to map GPU memory and crash the compositor with an Xid 31
-  # MMU fault. See github.com/NVIDIA/open-gpu-kernel-modules/issues/1134.
   my.wms.hyprland.noHardwareCursors = true;
-
-  # active/inactive/fullscreen. Spotify is more transparent than VS Code,
-  # which stays fairly opaque for code readability.
   my.wms.hyprland.transparentApps = {
     spotify = "0.80 0.65 1.0";
     code = "0.92 0.85 1.0";
   };
 
-  # user@host, full path, git branch/status - the standard multi-line
-  # informative Oh My Zsh theme.
-  my.programs.zsh.theme = "af-magic";
+  my.programs.zsh.theme = "bira";
   my.wms.hyprland.vars = {
     cursorTheme = "DMZ-White";
     cursorSize = 24;

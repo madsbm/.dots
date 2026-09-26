@@ -153,6 +153,9 @@
               null leaves the monitor unrotated.
             '';
           };
+          vendor = lib.mkOption { type = lib.types.nullOr lib.types.str; default = null; description = "EDID vendor (`hyprctl monitors`); needed only for GDM's monitors.xml."; };
+          product = lib.mkOption { type = lib.types.nullOr lib.types.str; default = null; description = "EDID product/model (`hyprctl monitors`); needed only for GDM's monitors.xml."; };
+          serial = lib.mkOption { type = lib.types.nullOr lib.types.str; default = null; description = "EDID serial (`hyprctl monitors`); needed only for GDM's monitors.xml."; };
         };
       });
       default = [ ];
