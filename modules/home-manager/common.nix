@@ -1,5 +1,11 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
+let
+  mkMonitorsXml = import ../lib/gdm-monitors-xml.nix { inherit lib; };
+  gdmMonitors = builtins.filter
+    (m: m.vendor != null && m.product != null && m.serial != null)
+    config.my.monitors;
+in
 {
   imports = [
     ./theming/default.nix
@@ -12,6 +18,12 @@
     brightnessctl
     fzf
   ];
+
+  # GNOME/Mutter (the GDM greeter) also reads this to lay out the login
+  # screen; see modules/nixos/desktop/display-manager.nix.
+  home.file.".config/monitors.xml" = lib.mkIf (gdmMonitors != [ ]) {
+    text = mkMonitorsXml gdmMonitors;
+  };
 
   services.polkit-gnome.enable = true;
   services.mpris-proxy.enable = true;
