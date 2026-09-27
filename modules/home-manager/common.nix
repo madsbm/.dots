@@ -26,6 +26,12 @@
 
   programs.vscode = {
     enable = true;
+    userSettings = {
+      "rust-analyzer.server.path" = "${pkgs.rust-analyzer}/bin/rust-analyzer";
+      "nix.enableLanguageServer" = true;
+      "nix.serverPath" = "${pkgs.nixd}/bin/nixd";
+      "nix.formatterPath" = "${pkgs.nixfmt}/bin/nixfmt";
+    };
     extensions = with pkgs.vscode-extensions; [
       github.github-vscode-theme
       vscode-icons-team.vscode-icons
