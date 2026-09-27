@@ -14,6 +14,7 @@ in
       theme = theme;
       enabledCustomApps = lib.optional cfg.marketplace spicePkgs.apps.marketplace;
       enabledExtensions = map (name: spicePkgs.extensions.${name}) cfg.extensions;
+      alwaysEnableDevTools = true;
     };
   };
 }
