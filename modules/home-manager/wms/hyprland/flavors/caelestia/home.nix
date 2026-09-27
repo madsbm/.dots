@@ -53,10 +53,7 @@ in
       cli.settings.wallpaper.postHook = ''awww img "$WALLPAPER_PATH" --transition-type center'';
     };
 
-    # shell.json is symlinked straight to the tracked file below (not built into
-    # the store) so it stays writable: caelestia persists its own runtime state
-    # (scheme choice, etc.) back into it, and this way that state is shared and
-    # in sync across every host instead of living in a per-host store symlink.
+    # Symlinked (not stored) so caelestia can persist its own runtime state back into it, shared across hosts.
     xdg.configFile."caelestia/shell.json".source =
       config.lib.file.mkOutOfStoreSymlink "/etc/nixos/modules/home-manager/wms/hyprland/flavors/caelestia/config/shell.json";
 

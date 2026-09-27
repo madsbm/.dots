@@ -63,10 +63,7 @@ let
     end)
   '';
 
-  # ilyamiro/serpantinum ships a fixed require() list with no user-override hook,
-  # so we splice in our own hyprland.lua/monitors.lua/config/user.lua on top of
-  # their vendored config rather than trying to layer xdg.configFile entries
-  # (which would collide with the paths already present in their source tree).
+  # serpantinum's require() list has no override hook, so splice our files onto its vendored tree.
   hyprConfig = pkgs.runCommand "serpantinum-hypr-config" { } ''
     mkdir -p $out/config
     cp -r ${inputs.serpantinum}/compositors/hyprland/config/. $out/config/
@@ -76,11 +73,7 @@ let
     cp ${userLua} $out/config/user.lua
   '';
 
-  # serpantinumd re-renders ~/.config/fastfetch/config.jsonc itself (its own
-  # matugen template, baked into the package, colored from the current
-  # wallpaper) every time the theme changes - so managing that path
-  # ourselves would just get overwritten. Patch the template it ships
-  # instead, keeping the {{colors.*}} placeholders for the dynamic theming.
+  # serpantinumd re-renders this from its own template on theme change, so patch the template instead.
   fastfetchTemplate = pkgs.writeText "fastfetch.jsonc.template" ''
     {
       "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",

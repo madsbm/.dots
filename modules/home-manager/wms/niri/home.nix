@@ -4,8 +4,7 @@ let
   cfg = config.my.wms.niri;
   themeDir = ./. + "/${cfg.theme}";
 
-  # niri's KDL transform names, indexed the same way as wl_output's
-  # transform enum (and thus my.monitors.*.transform).
+  # niri's KDL transform names, indexed like wl_output's transform enum.
   niriTransforms = [ "normal" "90" "180" "270" "flipped" "flipped-90" "flipped-180" "flipped-270" ];
 
   mkNiriOutput = m: ''

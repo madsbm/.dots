@@ -12,9 +12,7 @@ in
       spin = "xy";
     };
 
-    # fastfetch's own config (~/.config/fastfetch/config.jsonc) is owned and
-    # dynamically re-rendered by serpantinum's matugen pipeline; see
-    # modules/home-manager/wms/hyprland/flavors/serpantinum/home.nix.
+    # fastfetch's own config is managed by serpantinum's matugen pipeline, not here.
     home.packages = [ pkgs.fastfetch ];
 
     programs.zsh = {
@@ -30,8 +28,7 @@ in
         share = true;
       };
 
-      # powerlevel10k isn't a bundled oh-my-zsh theme, so it's sourced as a
-      # plugin (after oh-my-zsh.sh) instead of via oh-my-zsh's own theme=.
+      # Not a bundled oh-my-zsh theme, so sourced as a plugin instead of via theme=.
       plugins = [
         {
           name = "powerlevel10k";
@@ -47,10 +44,7 @@ in
       };
 
       initContent = lib.mkMerge [
-        # fastfetch runs before instant prompt's preamble entirely, so its
-        # output happens on the real tty (colors intact) and isn't flagged
-        # as unexpected console output during init. Skipped in small
-        # terminals (e.g. VSCode's integrated panel).
+        # Must run before instant prompt to reach the real tty.
         (lib.mkOrder 100 ''
           (( COLUMNS >= 80 && LINES >= 20 )) && fastfetch
         '')
