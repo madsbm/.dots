@@ -9,6 +9,8 @@ in
   imports = [ inputs.spicetify-nix.homeManagerModules.default ];
 
   config = lib.mkIf cfg.enable {
+    home.packages = [ pkgs.spicetify-cli ];
+
     programs.spicetify = {
       enable = true;
       theme = theme;

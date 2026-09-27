@@ -13,5 +13,12 @@
     .Root__top-container::before {
       display: none !important;
     }
+    .before-scroll-node {
+      display: none;
+    }
+    .main-entityHeader-container.main-entityHeader-withBackgroundImage {
+      height: unset;
+      padding-top: 5vh;
+    }
   '';
 }
