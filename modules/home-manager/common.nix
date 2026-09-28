@@ -41,6 +41,7 @@
       "security.workspace.trust.enabled" = false;
       "redhat.telemetry.enabled" = true;
       "terminal.integrated.defaultProfile.windows" = "Git Bash";
+      "terminal.external.linuxExec" = "kitty";
       "tailwindCSS.emmetCompletions" = true;
       "tailwindCSS.inspectPort" = 3000;
       "editor.quickSuggestions" = {
