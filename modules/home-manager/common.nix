@@ -13,6 +13,9 @@
     fzf
   ];
 
+  # rustup installs its toolchain proxies (cargo, rustc, ...) here.
+  home.sessionPath = [ "${config.home.homeDirectory}/.cargo/bin" ];
+
   services.polkit-gnome.enable = true;
   services.mpris-proxy.enable = true;
 

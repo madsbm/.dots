@@ -7,10 +7,7 @@
     nodejs_22
     buf
 
-    rustc
-    cargo
-    rustfmt
-    clippy
+    rustup
     rust-analyzer
     gcc
 
