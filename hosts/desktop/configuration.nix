@@ -7,6 +7,7 @@
     ../../modules/nixos/profiles/desktop.nix
 
     ../../modules/nixos/hardware/nvidia.nix
+    ../../modules/nixos/hardware/fans.nix
   ];
 
   # my.wm = "niri";
